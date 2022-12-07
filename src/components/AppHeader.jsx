@@ -9,7 +9,6 @@ function AppHeader() {
   const dispatch = useDispatch();
   const [modalOpen, setModalOpen] = useState(false);
   const initialFilterStatus = useSelector((state) => state.todo.filterStatus);
-  console.log(initialFilterStatus);
   const [filterStatus, setFilterStatus] = useState(initialFilterStatus);
 
   const updateFilter = (e) => {
