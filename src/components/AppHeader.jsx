@@ -1,36 +1,35 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { updateFilterStatus } from "../slices/todoReducer";
-import styles from "../styles/modules/app.module.scss";
 import Button, { SelectButton } from "./Button";
+import styles from "../styles/modules/app.module.scss";
 import TodoModal from "./TodoModal";
+import { updateFilterStatus } from "../slices/todoReducer";
 
 function AppHeader() {
-  const dispatch = useDispatch();
   const [modalOpen, setModalOpen] = useState(false);
   const initialFilterStatus = useSelector((state) => state.todo.filterStatus);
   const [filterStatus, setFilterStatus] = useState(initialFilterStatus);
+  const dispatch = useDispatch();
 
   const updateFilter = (e) => {
     setFilterStatus(e.target.value);
     dispatch(updateFilterStatus(e.target.value));
   };
+
   return (
     <div className={styles.appHeader}>
       <Button variant="primary" onClick={() => setModalOpen(true)}>
         Add Task
       </Button>
-
       <SelectButton
         id="status"
-        onClick={(e) => updateFilter(e)}
+        onChange={(e) => updateFilter(e)}
         value={filterStatus}
       >
-        <option value="all">all</option>
-        <option value="incompleted">incompleted</option>
-        <option value="complete">complete</option>
+        <option value="all">All</option>
+        <option value="incomplete">Incomplete</option>
+        <option value="complete">Completed</option>
       </SelectButton>
-      {/* Todo modal */}
       <TodoModal type="add" modalOpen={modalOpen} setModalOpen={setModalOpen} />
     </div>
   );
